@@ -1,11 +1,13 @@
-import GeneralSituation from "@/components/study/GeneralSituation";
-import CourseSelect from "@/components/study/CourseSelect";
+import GeneralSituation from "./components/study/GeneralSituation";
+import CourseSelect from "./components/study/CourseSelect";
+import VueRouter from "vue-router";
 
-const routerCOnfig =  {
+const routerConfig =  {
     routes: [
-        {path: '/study/situation', COMPONENT: GeneralSituation},
-        {path: '/study/course/select', COMPONENT: CourseSelect}
+        {path: '/study/situation', component: GeneralSituation},
+        {path: '/study/course/select', component: CourseSelect},
+        {path: '/*', redirect: '/study/situation'},
     ],
 };
 
-export default routerCOnfig;
+export default new VueRouter(routerConfig);
