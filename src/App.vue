@@ -2,66 +2,19 @@
   <div id="app">
     <el-container>
       <el-aside :width="!isCollapsed ? '200px' : '63px'">
-        <el-menu class="el-menu-vertical-demo" :collapse="isCollapsed" :default-active="defaultActive">
-          <el-submenu index="1">
-            <template slot="title">
+        <el-menu class="el-menu-vertical-demo" :collapse="isCollapsed" :router="true">
+          <el-menu-item index="/study/situation">
               <i class="el-icon-collection"></i>
-              <span slot="title">学习管理</span>
-            </template>
-            <el-menu-item-group>
-              <template slot="title">课程</template>
-              <el-menu-item index="1-1-1" @click="$router.push('/study/course/select')">选课</el-menu-item>
-              <el-menu-item index="1-1-2">课表</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group>
-              <template slot="title">进度</template>
-              <el-menu-item index="1-2-1">学分查询</el-menu-item>
-              <el-menu-item index="1-2-2" @click="$router.push('/study/situation')">总体情况</el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
-          <el-submenu index="2">
-            <template slot="title">
+              <span slot="title">总体情况</span>
+          </el-menu-item>
+          <el-menu-item index="/study/course/select">
               <i class="el-icon-tickets"></i>
-              <span slot="title">信息查询</span>
-            </template>
-            <el-menu-item-group>
-              <template slot="title">校园</template>
-              <el-menu-item index="2-1-1">校历</el-menu-item>
-              <el-menu-item index="2-1-2">空教室查询</el-menu-item>
-              <el-menu-item index="2-1-3">日程表</el-menu-item>
-              <el-menu-item index="2-1-4">校园动态</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group>
-              <template slot="title">竞赛项目</template>
-              <el-menu-item index="2-2-1">竞赛安排</el-menu-item>
-              <el-menu-item index="2-2-2">竞赛动态</el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
-          <el-submenu index="3">
-            <template slot="title">
-              <i class="el-icon-school"></i>
-              <span slot="title">校园服务</span>
-            </template>
-            <el-menu-item-group>
-              <template slot="title">费用缴纳</template>
-              <el-submenu index="3-1-1">
-                <template slot="title">学习相关</template>
-                <el-menu-item index="3-1-1-1">学费缴纳</el-menu-item>
-                <el-menu-item index="3-1-1-2">书本购买</el-menu-item>
-              </el-submenu>
-              <el-submenu index="3-1-2">
-                <template slot="title">生活相关</template>
-                <el-menu-item index="3-1-2-1">住宿费</el-menu-item>
-                <el-menu-item index="3-1-2-2">水电费</el-menu-item>
-                <el-menu-item index="3-1-2-3">饭卡充值</el-menu-item>
-              </el-submenu>
-            </el-menu-item-group>
-            <el-menu-item-group>
-              <template slot="title">项目相关</template>
-              <el-menu-item index="3-2-1">立项申请</el-menu-item>
-              <el-menu-item index="3-2-2">经费报销</el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
+              <span slot="title">选课</span>
+          </el-menu-item>
+          <el-menu-item index="/user/17">
+              <i class="el-icon-user"></i>
+              <span slot="title">个人信息</span>
+          </el-menu-item>
         </el-menu>
       </el-aside>
       <el-container>
@@ -74,11 +27,9 @@
                 @click="reverseCollapse">
             </el-button>
           </span>
-          <el-dropdown @command="handleCommand">
+          <el-dropdown>
             <i class="el-icon-user" style="margin-right: 15px"></i>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="user">个人信息</el-dropdown-item>
-              <el-dropdown-item command="notice">通知</el-dropdown-item>
               <el-dropdown-item command="logout">注销</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -101,18 +52,12 @@ export default {
   data: function () {
     return {
       isCollapsed: false,
-      defaultActive: '1-2-2'
     };
   },
   methods: {
     reverseCollapse: function () {
       this.isCollapsed = !this.isCollapsed;
-    },
-    handleCommand(command) {
-      if (command === 'user')
-        this.$router.push("/user/17");
-      this.defaultActive = '1';
-    },
+    }
   },
 }
 </script>
