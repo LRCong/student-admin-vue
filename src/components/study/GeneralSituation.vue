@@ -40,7 +40,8 @@
       <div class="course-content">
         <el-table
             :data="courseDisplay"
-            style="width: 100%">
+            :height="'100%'"
+            style="width: 100%;">
           <el-table-column
               v-for="(value, name, index) in systemCourse[0]"
               :fixed="name === '课程名称'"
