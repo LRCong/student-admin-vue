@@ -1,6 +1,6 @@
 <template>
   <div class='container'>
-    <el-select v-model="semester" clearable placeholder="请选择学期" @change="getCourse">
+    <el-select v-model="semester" clearable placeholder="请选择学期" @change="getCourseData">
       <el-option
           v-for="item in options"
           :key="item.value"
@@ -15,17 +15,29 @@
       <el-tab-pane label="文理通识" name="文理通识"></el-tab-pane>
     </el-tabs>
     <el-table
-        :data="courseData"
+        :data="displayCourse"
         style="width: 100%">
-<!--      <el-table-column type="expand">-->
-<!--        <template slot-scope="props">-->
-<!--          <el-form label-position="left" inline class="demo-table-expand">-->
-<!--            <el-form-item label="商品名称">-->
-<!--              <span>{{ props.row.name }}</span>-->
-<!--            </el-form-item>-->
-<!--          </el-form>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
+      <el-table-column type="expand">
+        <template slot-scope="props">
+          <el-form label-position="left" inline class="demo-table-expand">
+            <el-form-item label="课程名称">
+              <span>{{ props.row.name }}</span>
+            </el-form-item>
+            <el-form-item label="开课院系">
+              <span>{{ props.row.institute }}</span>
+            </el-form-item>
+            <el-form-item label="所属体系">
+              <span>{{ props.row.system }}</span>
+            </el-form-item>
+            <el-form-item label="课程时间">
+              <span>{{ props.row.time }}</span>
+            </el-form-item>
+            <el-form-item label="课程简介">
+              <span>{{ props.row.introduction }}</span>
+            </el-form-item>
+          </el-form>
+        </template>
+      </el-table-column>
       <el-table-column
         label="名字"
         prop="name">
@@ -46,6 +58,19 @@
           label="开课时间"
           prop="time">
       </el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button
+              v-if="courseData.find(value => value.name === scope.row.name).selected"
+              size="mini"
+              @click="handleSelect(scope.row.name, false)">退课</el-button>
+          <el-button
+              v-else
+              size="mini"
+              type="primary"
+              @click="handleSelect(scope.row.name, true)">选课</el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -61,8 +86,22 @@ export default {
       courseData: []
     }
   },
+  computed: {
+    displayCourse() {
+      if (this.nowTab === '已选') {
+        return this.courseData.filter(value => value.selected);
+      } else if (this.nowTab === '必修') {
+        return this.courseData.filter(value => value.system === '专业必修课')
+      } else if (this.nowTab === '文理通识') {
+        return this.courseData.filter(value => value.system === '文理通识课')
+      } else if (this.nowTab === '限选') {
+        return this.courseData.filter(value => value.system === '专业选修课')
+      }
+      return [];
+    }
+  },
   methods: {
-    getCourse() {
+    getCourseData() {
       fetch('./data/course.json')
         .then(stream => stream.json())
         .then(data => {
@@ -72,9 +111,14 @@ export default {
             teacher: value.teacher.join(' '),
             institute: value.institute,
             system: value.system,
-            time: value.time.join('至')
+            time: value.time.join('至'),
+            introduction: value.introduction,
+            selected: value.selected
           }));
         });
+    },
+    handleSelect(name, selected) {
+      this.courseData.find(value => value.name === name).selected = selected;
     },
   },
   mounted() {

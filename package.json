@@ -9,9 +9,12 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "echarts": "^4.8.0",
+    "echarts-liquidfill": "^2.0.6",
     "element-ui": "^2.14.1",
     "vue": "^2.6.11",
-    "vue-router": "^3.4.9"
+    "vue-router": "^3.4.9",
+    "zrender": "^4.3.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

@@ -2,10 +2,10 @@
   <div id="app">
     <el-container>
       <el-aside :width="!isCollapsed ? '200px' : '63px'">
-        <el-menu class="el-menu-vertical-demo" :collapse="isCollapsed" default-active="1-2-2">
+        <el-menu class="el-menu-vertical-demo" :collapse="isCollapsed" :default-active="defaultActive">
           <el-submenu index="1">
             <template slot="title">
-              <i class="el-icon-setting"></i>
+              <i class="el-icon-collection"></i>
               <span slot="title">学习管理</span>
             </template>
             <el-menu-item-group>
@@ -21,7 +21,7 @@
           </el-submenu>
           <el-submenu index="2">
             <template slot="title">
-              <i class="el-icon-setting"></i>
+              <i class="el-icon-tickets"></i>
               <span slot="title">信息查询</span>
             </template>
             <el-menu-item-group>
@@ -39,7 +39,7 @@
           </el-submenu>
           <el-submenu index="3">
             <template slot="title">
-              <i class="el-icon-setting"></i>
+              <i class="el-icon-school"></i>
               <span slot="title">校园服务</span>
             </template>
             <el-menu-item-group>
@@ -74,12 +74,12 @@
                 @click="reverseCollapse">
             </el-button>
           </span>
-          <el-dropdown>
+          <el-dropdown @command="handleCommand">
             <i class="el-icon-user" style="margin-right: 15px"></i>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>个人信息</el-dropdown-item>
-              <el-dropdown-item>通知</el-dropdown-item>
-              <el-dropdown-item>注销</el-dropdown-item>
+              <el-dropdown-item command="user">个人信息</el-dropdown-item>
+              <el-dropdown-item command="notice">通知</el-dropdown-item>
+              <el-dropdown-item command="logout">注销</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
           <span>王小虎</span>
@@ -101,12 +101,18 @@ export default {
   data: function () {
     return {
       isCollapsed: false,
+      defaultActive: '1-2-2'
     };
   },
   methods: {
     reverseCollapse: function () {
       this.isCollapsed = !this.isCollapsed;
-    }
+    },
+    handleCommand(command) {
+      if (command === 'user')
+        this.$router.push("/user/17");
+      this.defaultActive = '1';
+    },
   },
 }
 </script>
@@ -148,7 +154,7 @@ export default {
   transition: 0.3s;
 }
 
-.container {
+.main-container {
   box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
   padding: 20px;
 }
