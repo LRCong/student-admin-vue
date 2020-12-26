@@ -15,6 +15,10 @@
               <i class="el-icon-user"></i>
               <span slot="title">个人信息</span>
           </el-menu-item>
+<!--          <el-menu-item index="/user/fee">-->
+<!--            <i class="el-icon-shopping-bag-1"></i>-->
+<!--            <span slot="title">费用缴纳</span>-->
+<!--          </el-menu-item>-->
         </el-menu>
       </el-aside>
       <el-container>
